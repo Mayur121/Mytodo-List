@@ -10,21 +10,20 @@ document.querySelector("form").addEventListener("submit", (e) => {
 
 var numberOfTasks = 0;
 var pendingTasks = 0;
-var taskUpdate1 = document.getElementById("task-update");
+var updateTask = document.getElementById("task-update");
 // function for updating the number of tasks
 function taskUpdate() {
-  taskUpdate1.innerText = "Task pending:" + pendingTasks;
+  updateTask.innerText = "Task pending: " + pendingTasks;
 }
 
 function loadTasks() {
   taskUpdate();
   var tasks = getLocalStorage();
-  console.log("a", tasks);
   if (!tasks) {
     return;
   }
 
-  if (tasks.length > 0) {
+  if (tasks.length !== 0) {
     deleteAllBtn.classList.add("active");
   } else {
     deleteAllBtn.classList.remove("active");
@@ -80,11 +79,9 @@ function addTask() {
 
 function taskComplete(event) {
   let tasks = getLocalStorage();
-  console.log("a", tasks);
   tasks.forEach((task) => {
     if (task.task === event.nextElementSibling.value) {
       task.completed = !task.completed;
-      console.log("a", task.completed);
       if (task.completed) {
         pendingTasks--;
       } else {
@@ -171,14 +168,8 @@ function addItem(task) {
     totalItem = [task, ...totalItem];
   }
 
-  console.log(totalItem);
-
   setLocalStorage(totalItem);
 }
-
-function getItem() {}
-
-function deleteItem(task) {}
 
 function setLocalStorage(tasks) {
   _localStorage.setItem("tasks", JSON.stringify(tasks));
