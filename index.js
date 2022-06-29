@@ -1,5 +1,5 @@
-// get all the elements required
 const _localStorage = window.localStorage;
+
 const task = document.querySelector("form input");
 const list = document.querySelector("ul");
 const deleteAllBtn = document.getElementById("clear");
@@ -37,9 +37,8 @@ document.querySelector("form").addEventListener("submit", (e) => {
   addTask();
 });
 
-// set variables for number of tasks & pending tasks
+// set variables for number of tasks
 var numberOfTasks = 0;
-// var pendingTasks = 0;
 var updateTask = document.getElementById("task-update");
 // function for updating the number of tasks
 function taskUpdate() {
@@ -68,7 +67,7 @@ function loadTasks() {
     list.insertBefore(li, list.children[0]);
   });
 
-  // update pending tasks
+  // update total tasks in the list
   taskUpdate();
 }
 
@@ -98,9 +97,8 @@ function addTask() {
   // clear input
   task.value = "";
   numberOfTasks++;
-//   pendingTasks++;
 
-  // update pending tasks
+  // update total tasks in the list
   taskUpdate();
 }
 
@@ -115,7 +113,7 @@ function taskComplete(event) {
   setLocalStorage(tasks);
   event.nextElementSibling.classList.toggle("completed");
 
-  // update pending tasks
+  // update total tasks in the list
   taskUpdate();
 }
 
@@ -132,10 +130,9 @@ function removeTask(event) {
   event.parentElement.remove();
   if (numberOfTasks !== 0) {
     numberOfTasks--;
-//     pendingTasks--;
   }
 
-  // update pending tasks
+  // update total tasks in the list
   taskUpdate();
 }
 
@@ -179,8 +176,8 @@ deleteAllBtn.onclick = () => {
   tasks = []; //empty the array
   // after deletion of all tasks update local storage again
   setLocalStorage(tasks);
-//   pendingTasks = 0;
   numberOfTasks = 0;
+  // update total tasks in the list
   taskUpdate();
   loadTasks();
 };
