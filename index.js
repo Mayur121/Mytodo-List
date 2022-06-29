@@ -1,13 +1,43 @@
+const _localStorage = window.localStorage;
+
+const task = document.querySelector("form input");
+const list = document.querySelector("ul");
+const deleteAllBtn = document.getElementById("clear");
+
+// function to add task to localStorage
+function addItem(task) {
+  var totalItem = getLocalStorage();
+  if (!totalItem) {
+    totalItem = [task];
+  } else {
+    totalItem = [task, ...totalItem];
+  }
+
+  setLocalStorage(totalItem);
+}
+
+// function to set the tasks in localStorage
+function setLocalStorage(tasks) {
+  _localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// function to get the tasks from localStorage
+function getLocalStorage() {
+  return JSON.parse(_localStorage.getItem("tasks"));
+}
+
 // On app load, get all tasks from localStorage
 window.onload = loadTasks;
-const deleteAllBtn = document.getElementById("clear");
 
 // On form submit add task
 document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
+
+  // calling addTask()
   addTask();
 });
 
+// set variables for number of tasks & pending tasks
 var numberOfTasks = 0;
 var pendingTasks = 0;
 var updateTask = document.getElementById("task-update");
@@ -16,6 +46,7 @@ function taskUpdate() {
   updateTask.innerText = "Task pending: " + pendingTasks;
 }
 
+// function to show the tasks on the screen
 function loadTasks() {
   taskUpdate();
   var tasks = getLocalStorage();
@@ -23,14 +54,7 @@ function loadTasks() {
     return;
   }
 
-  if (tasks.length !== 0) {
-    deleteAllBtn.classList.add("active");
-  } else {
-    deleteAllBtn.classList.remove("active");
-  }
-
   // Loop through the tasks and add them to the list
-  const list = document.querySelector("ul");
   list.innerHTML = "";
   tasks.forEach((task) => {
     const li = document.createElement("li");
@@ -43,12 +67,13 @@ function loadTasks() {
        <i class="fa fa-trash" onclick="removeTask(this)"></i>`;
     list.insertBefore(li, list.children[0]);
   });
+
+  // update pending tasks
   taskUpdate();
 }
 
+// function to add a new task in the list
 function addTask() {
-  const task = document.querySelector("form input");
-  const list = document.querySelector("ul");
   // return if task is empty
   let userData = task.value;
   if (userData.trim() === "") {
@@ -61,7 +86,7 @@ function addTask() {
     return;
   }
 
-  // add task to local storage
+  // calling addItem() to add the task to local storage
   addItem({ task: task.value, completed: false });
 
   // create list item, add innerHTML and append to ul
@@ -74,9 +99,12 @@ function addTask() {
   task.value = "";
   numberOfTasks++;
   pendingTasks++;
+
+  // update pending tasks
   taskUpdate();
 }
 
+// function to toggle the task status
 function taskComplete(event) {
   let tasks = getLocalStorage();
   tasks.forEach((task) => {
@@ -91,9 +119,12 @@ function taskComplete(event) {
   });
   setLocalStorage(tasks);
   event.nextElementSibling.classList.toggle("completed");
+
+  // update pending tasks
   taskUpdate();
 }
 
+// function to delete the task
 function removeTask(event) {
   let tasks = getLocalStorage();
   tasks.forEach((task) => {
@@ -109,6 +140,7 @@ function removeTask(event) {
     pendingTasks--;
   }
 
+  // update pending tasks
   taskUpdate();
 }
 
@@ -157,24 +189,3 @@ deleteAllBtn.onclick = () => {
   taskUpdate();
   loadTasks();
 };
-
-const _localStorage = window.localStorage;
-
-function addItem(task) {
-  var totalItem = getLocalStorage();
-  if (!totalItem) {
-    totalItem = [task];
-  } else {
-    totalItem = [task, ...totalItem];
-  }
-
-  setLocalStorage(totalItem);
-}
-
-function setLocalStorage(tasks) {
-  _localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-function getLocalStorage() {
-  return JSON.parse(_localStorage.getItem("tasks"));
-}
