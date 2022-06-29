@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro') ;
 
 
-/*----------- Removing default margin & padding -------*/
+/*----------- Setting properties for all the elements in the page -------*/
 *{
     margin: 0;
     padding: 0;
@@ -10,7 +10,6 @@
     font-family: 'Crimson Pro', sans-serif;
     outline: none;
 }
-
 
 /*-------- Styling the container -------*/
 .container {
@@ -43,6 +42,13 @@
   background-color: #f30d2c;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-bottom: 50px;
+  transition: .3s ease-in-out;
+}
+
+/*---------- Add hover effect to heading -----------*/
+.app h1:hover {
+  background: #ff0202;
+  font-size: 50px;
 }
 
 /*-------- Styling the form -------*/
@@ -75,11 +81,14 @@
   width: 10%;
   margin-left: 5px;
   cursor: pointer;
+  transition: .1s ease-in-out;
 }
 
 /*-------- add button hover effect -------*/
 .app form button:hover {
   background: rgb(85, 253, 7);
+  border-radius: 5px;
+  transform: scale(1.1);
 }
 
 /*-------- Styling the ul element -------*/
@@ -174,10 +183,11 @@
     border-radius: 3px;
     margin-left: 5px;
     padding: 6px 10px;
+    transition: .1s step-start;
 }
 
 /*-------- Adding hover effect to CLEAR ALL button --------*/
 #clear:hover {
   background: #ee0a0a;
-  font-size: 17px;
+  transform: scale(1.1);
 }
