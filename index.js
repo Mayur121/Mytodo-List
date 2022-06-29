@@ -1,5 +1,5 @@
+// get all the elements required
 const _localStorage = window.localStorage;
-
 const task = document.querySelector("form input");
 const list = document.querySelector("ul");
 const deleteAllBtn = document.getElementById("clear");
