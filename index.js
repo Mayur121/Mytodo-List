@@ -39,11 +39,11 @@ document.querySelector("form").addEventListener("submit", (e) => {
 
 // set variables for number of tasks & pending tasks
 var numberOfTasks = 0;
-var pendingTasks = 0;
+// var pendingTasks = 0;
 var updateTask = document.getElementById("task-update");
 // function for updating the number of tasks
 function taskUpdate() {
-  updateTask.innerText = "Task pending: " + pendingTasks;
+  updateTask.innerText = "Number of tasks: " + numberOfTasks;
 }
 
 // function to show the tasks on the screen
@@ -98,7 +98,7 @@ function addTask() {
   // clear input
   task.value = "";
   numberOfTasks++;
-  pendingTasks++;
+//   pendingTasks++;
 
   // update pending tasks
   taskUpdate();
@@ -110,11 +110,6 @@ function taskComplete(event) {
   tasks.forEach((task) => {
     if (task.task === event.nextElementSibling.value) {
       task.completed = !task.completed;
-      if (task.completed) {
-        pendingTasks--;
-      } else {
-        pendingTasks++;
-      }
     }
   });
   setLocalStorage(tasks);
@@ -135,9 +130,9 @@ function removeTask(event) {
   });
   setLocalStorage(tasks);
   event.parentElement.remove();
-  if (pendingTasks !== 0) {
+  if (numberOfTasks !== 0) {
     numberOfTasks--;
-    pendingTasks--;
+//     pendingTasks--;
   }
 
   // update pending tasks
@@ -184,7 +179,7 @@ deleteAllBtn.onclick = () => {
   tasks = []; //empty the array
   // after deletion of all tasks update local storage again
   setLocalStorage(tasks);
-  pendingTasks = 0;
+//   pendingTasks = 0;
   numberOfTasks = 0;
   taskUpdate();
   loadTasks();
