@@ -176,7 +176,7 @@
     padding: 6px 10px;
 }
 
-/*-------- Adding hover effect to CLEAR ALL button -------*/
+/*-------- Adding hover effect to CLEAR ALL button --------*/
 #clear:hover {
   background: #ee0a0a;
   font-size: 17px;
